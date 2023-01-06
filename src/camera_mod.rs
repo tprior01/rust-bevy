@@ -104,13 +104,12 @@ pub fn get_primary_window_size(windows: &Res<Windows>) -> Vec2 {
 }
 
 /// Spawn a camera like this
-pub fn spawn_camera(mut commands: Commands) {
-    let translation = Vec3::new(121231.896, 189344.672, 0.0);
+pub fn spawn_camera(mut commands: Commands, translation: Vec3, focus: Vec3) {
     let radius = translation.length();
-    let focus = Vec3::new(121231.896, 189344.672, 69.0);
-
     commands.spawn((
         Camera3dBundle {
+            transform: Transform::from_translation(translation)
+            .looking_at(focus, Vec3::Z),
             ..Default::default()
         },
         PickingCameraBundle::default(),
